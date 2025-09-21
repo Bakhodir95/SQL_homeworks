@@ -103,3 +103,40 @@ Select* from Products order by Price asc
 	-- Combine FirstName and LastName into one column named FullName in the Employees table. (only in select statement)
 		SELECT FirstName + ' ' + LastName AS FullName
 		FROM Employees;
+
+	-- task 21
+	--Write a query to select the distinct Category, ProductName, and Price for products that are priced above $50, using DISTINCT on three columns.
+		Select Distinct Category,ProductName,Price from Products where Price >50
+
+	-- task 22
+	-- Write a query that selects products whose Price is less than 10% of the average price in the Products table. (Do some research on how to find average price of all products)
+		Select * from Products WHERE Price < (SELECT AVG(Price) * 0.10 FROM Products);
+
+	-- task 23
+	-- Use WHERE clause to filter for employees whose Age is less than 30 and who work in either the 'HR' or 'IT' department.
+		SELECT *
+		FROM Employees
+		WHERE Age < 30 
+		AND Department IN ('HR', 'IT');
+
+		SELECT *
+		FROM Employees
+		WHERE Age < 30 
+		AND (Department = 'HR' OR Department = 'IT');
+
+	-- task 24
+	-- Use LIKE with wildcard to select all customers whose Email contains the domain '@gmail.com'.
+		Select * from Customers Where Email Like '%@gmail.com%'
+
+	-- task 25
+	-- Write a query that uses the ALL operator to find employees whose salary is greater than all employees in the 'Sales' department.
+		Select * from Employees Where Salary > ALl(Select Salary from Employees where Department='Sales')
+		SELECT * From Employees Where Salary > (SELECT MAX(Salary) FROM Employees Where Department='Sales');
+
+	--task 26
+	-- Write a query that filters the Orders table for orders placed in the last 180 days using BETWEEN and LATEST_DATE in the table. (Search how to get the current date and latest date)
+		SELECT *
+		FROM Orders
+		WHERE OrderDate 
+		BETWEEN DATEADD(DAY, -180, GETDATE()) AND GETDATE();
+
